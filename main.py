@@ -5,11 +5,7 @@ from solvers.brute_force_solver import BruteForceSolver
 if __name__ == '__main__':
     # Create cube
     cube = Cube()
-    print(cube.check_if_solved())
-    cube.vertical_twist()
-    print(cube.check_if_solved())
-    cube.vertical_twist()
-    print(cube.check_if_solved())
+
     cube.set_new_orientation(
         top_pieces=[
             Piece(True, i)
@@ -21,12 +17,13 @@ if __name__ == '__main__':
         ]
     )
     solver = BruteForceSolver(cube)
-    #solver = BruteForceSolver(Cube())  # With new cube
-    #solver.solve(max_moves=100000000, verbose=True)
+    # solver = BruteForceSolver(Cube())  # With new cube
+    # solver.solve(max_moves=100000000, verbose=True)
 
+    print('Solving...')
     unsolved = True
     while unsolved:
-        if solver.solve(max_moves=20):
+        if solver.solve(max_moves=60):
             print('Solution:')
             print(solver.solution)
             unsolved = False
