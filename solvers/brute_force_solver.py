@@ -12,11 +12,10 @@ class BruteForceSolver:
         cube = copy.deepcopy(self.cube)
 
         for i in range(max_moves):
-            if i % 2 == 0:  # Only need to check even due to even no. x vertical moved needed to be solvable
-                if cube.check_if_solved():
-                    print(f'Solved in {i} moves!')
-                    self.solution.append('SOLVED')
-                    return True
+            if cube.check_if_solved():
+                print(f'Solved in {i} moves!')
+                self.solution.append('SOLVED')
+                return True
 
             # Randomly move the cube
             random_int = random.randint(0, 2)
