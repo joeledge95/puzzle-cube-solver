@@ -9,6 +9,9 @@ class Cube:
         # Array of 12 bottom pieces. [0] is bottom-front-left circling to [11] at bottom-left-front
         self.bottom_pieces = [Piece(top=False, position=i) for i in range(12)]
 
+        # Middle only has 2 orientations
+        self.middle_solved = True
+
     def top_twist(self, n_shift_left):
         if n_shift_left < 1 or n_shift_left > 11:
             print('NO TWIST MADE: n_shift_right should be between 1 and 11')
@@ -29,9 +32,14 @@ class Cube:
         temp_a_move_set = self.top_pieces[1:7]
         self.top_pieces[1:7] = self.bottom_pieces[1:7]
         self.bottom_pieces[1:7] = temp_a_move_set
+        self.middle_solved = not self.middle_solved
         return
 
     def check_if_solved(self):
+        # Middle check
+        if not self.middle_solved:
+            return False
+
         # Top check
         for i, top_piece in enumerate(self.top_pieces):
             if (not top_piece.default_top) or (top_piece.default_position != i):
@@ -45,7 +53,7 @@ class Cube:
         # If pass return true
         return True
 
-    def set_new_orientation(self, top_pieces, bottom_pieces):
+    def set_new_orientation(self, top_pieces, bottom_pieces, middle_solved=True):
         if len(top_pieces) != 12 or len(bottom_pieces) != 12:
             print('Incorrect pieces set')
             return
@@ -82,4 +90,5 @@ class Cube:
         # Do something
         self.top_pieces = top_pieces
         self.bottom_pieces = bottom_pieces
+        self.middle_solved = middle_solved
         return
