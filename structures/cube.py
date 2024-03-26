@@ -39,11 +39,47 @@ class Cube:
 
         # Bottom check
         for i, bottom_piece in enumerate(self.bottom_pieces):
-            if (bottom_piece.default_top) or (bottom_piece.default_position != i):
+            if bottom_piece.default_top or (bottom_piece.default_position != i):
                 return False
 
         # If pass return true
         return True
 
-    def shuffle(self):
-        pass
+    def set_new_orientation(self, top_pieces, bottom_pieces):
+        if len(top_pieces) != 12 or len(bottom_pieces) != 12:
+            print('Incorrect pieces set')
+            return
+
+        for i in range(12):
+            # Check if ith top piece is there
+            top_piece_found = False
+            for top_piece in top_pieces:
+                if top_piece.default_top and top_piece.default_position == i:
+                    top_piece_found = True
+
+            for bottom_piece in bottom_pieces:
+                if (not bottom_piece.default_top) and bottom_piece.default_position == i:
+                    top_piece_found = True
+
+            if not top_piece_found:
+                print('Incorrect pieces set')
+                return
+
+            # Check if ith bottom piece is there
+            bottom_piece_found = False
+            for bottom_piece in bottom_pieces:
+                if bottom_piece.default_top and bottom_piece.default_position == i:
+                    bottom_piece_found = True
+
+            for bottom_piece in bottom_pieces:
+                if (not bottom_piece.default_top) and bottom_piece.default_position == i:
+                    bottom_piece_found = True
+
+            if not bottom_piece_found:
+                print('Incorrect pieces set')
+                return
+
+        # Do something
+        self.top_pieces = top_pieces
+        self.bottom_pieces = bottom_pieces
+        return
