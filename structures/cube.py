@@ -29,8 +29,8 @@ class Cube:
         return
 
     def vertical_twist(self):
-        temp_a_move_set = self.top_pieces[1:7]
-        self.top_pieces[1:7] = self.bottom_pieces[1:7]
+        temp_a_move_set = self.top_pieces[1:7][::-1]
+        self.top_pieces[1:7] = self.bottom_pieces[1:7][::-1]
         self.bottom_pieces[1:7] = temp_a_move_set
         self.middle_solved = not self.middle_solved
         return
